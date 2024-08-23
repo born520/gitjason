@@ -29,8 +29,9 @@ jobs:
 
     - name: Commit and push changes
       env:
-        GITHUB_TOKEN: ${{ secrets.PAT }}  # 퍼스널 액세스 토큰 사용
+        PAT: ${{ secrets.PAT }}  # 퍼스널 액세스 토큰 사용
       run: |
+        git remote set-url origin https://{{ secrets.PAT }}@github.com/born520/gitjason.git
         git add data.json
         git commit --allow-empty -m "Automated update data.json"
         git pull --rebase origin main  # 충돌 방지를 위한 rebase 병합
