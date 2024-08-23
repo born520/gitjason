@@ -11,10 +11,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3  # 최신 버전 사용
+      uses: actions/checkout@v3
 
     - name: Set up Python
-      uses: actions/setup-python@v4  # 최신 버전 사용
+      uses: actions/setup-python@v4
       with:
         python-version: '3.x'
 
@@ -23,9 +23,11 @@ jobs:
         curl -o data.json "https://script.google.com/macros/s/AKfycbyoKMoftj3_1qvycSXb2KjuMkqj62q4gttGlPy8mjCYKo43Jn3oTM2k093LQss0sAqv/exec"
 
     - name: Commit and push changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub Actions에서 제공하는 토큰 사용
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git add data.json
-        git commit --allow-empty -m "Automated update data.json"  # 변경 사항이 없어도 커밋 생성
-        git push --force  # 강제로 푸시하여 덮어쓰기
+        git commit --allow-empty -m "Automated update data.json"
+        git push --force
