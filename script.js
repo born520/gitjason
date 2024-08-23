@@ -1,6 +1,6 @@
 async function fetchDataAndRenderTable() {
     try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbzsR3KoRpG4c8EunHjLFDgtRswLe9rxJRnRmwfC7OLdjOYGOoPMPuN9IhFguBTcYOF3/exec');
+        const response = await fetch('data.json');  // 웹앱 URL 대신 로컬의 data.json 파일을 읽어옴
         const data = await response.json();
         renderTable(data);
     } catch (error) {
@@ -10,7 +10,7 @@ async function fetchDataAndRenderTable() {
 
 function renderTable(data) {
     const table = document.querySelector('#data-table');
-    table.innerHTML = ''; // Clear existing table content
+    table.innerHTML = ''; // 기존 테이블 내용을 지웁니다.
 
     data.tableData.forEach((row, rowIndex) => {
         const tr = table.insertRow();
