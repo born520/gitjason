@@ -22,13 +22,16 @@ jobs:
       run: |
         curl -o data.json "https://script.google.com/macros/s/AKfycbyoKMoftj3_1qvycSXb2KjuMkqj62q4gttGlPy8mjCYKo43Jn3oTM2k093LQss0sAqv/exec"
 
-    - name: Commit and push changes
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub Actions에서 제공하는 기본 인증 토큰 사용
+    - name: Configure Git
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Commit and push changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GITHUB_TOKEN을 환경 변수로 설정
+      run: |
         git add data.json
         git commit --allow-empty -m "Automated update data.json"
         git pull --rebase origin main  # 충돌 방지를 위한 rebase 병합
-        git push --force
+        git push --force  # 강제로 푸시
